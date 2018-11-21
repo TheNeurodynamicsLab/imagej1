@@ -143,6 +143,17 @@ public class TimeSeries_3D_Analyser extends javax.swing.JFrame implements Runnab
             recenter(this.currentImp, roi, roi.getPosition());
         }
     }
+
+    double findMax(double[] data) {
+        //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        double max = 0;
+        
+        for(double datum : data){
+            max =  (max > datum ? max : datum);
+        }
+        
+        return max;
+    }
     enum  roiType{ OVAL,RECTANGLE}; 
     private roiType roiShape = roiType.OVAL;
     
@@ -1838,7 +1849,19 @@ public class TimeSeries_3D_Analyser extends javax.swing.JFrame implements Runnab
                 double [] params3 = fitterOffset.getParams();
        
                 Peaks.addValue(Label,params3[1]);
-               
+                /**
+                 * Check for the goodness of fit in the following and 
+                 * then decide on which parameter to record
+                 * 
+                 */
+                double dataMax = 0;
+                if(true /*Goodness of Fit or RSquared currently GoodnessofFit*/){
+                    if(fitterOffset.getFitGoodness() < 0.9 /*user choosable*/){
+                       if(true /*Max is choosen*/) 
+                          dataMax =  findMax(yData);
+                        CorPeaks.addValue(Label,dataMax);
+                    }
+                }
                 GaussOffsetFits.incrementCounter();
                 GaussOffsetFits.addLabel(Label);
                 int p2Count = 0;
@@ -1885,7 +1908,9 @@ public class TimeSeries_3D_Analyser extends javax.swing.JFrame implements Runnab
             rt.save(resultsDirectory+File.separator+resultsTitle+".csv");
             
             Peaks.showRowNumbers(true);
+            CorPeaks.showRowNumbers(true);
             Peaks.show("Gaussian Peaks with Offset Correction");
+            CorPeaks.show("GaussianIntensities non fit data replaced");
             
         }
         
