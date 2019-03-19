@@ -11,6 +11,8 @@ import ij.process.FloatProcessor;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JFileChooser;
 
 /**
@@ -120,11 +122,15 @@ public class Image_to_XYI extends javax.swing.JFrame implements PlugIn{
                    try{
                        stringWriter.append(stringToWrite);
                    }catch(IOException e){
-                       
+                       Logger.getLogger(Image_to_XYI.class.getName()).log(Level.SEVERE, null, e);
                    }
                    
                }
-           
+           try {
+               stringWriter.flush();
+           } catch (IOException ex) {
+               Logger.getLogger(Image_to_XYI.class.getName()).log(Level.SEVERE, null, ex);
+           }
            
            
            
