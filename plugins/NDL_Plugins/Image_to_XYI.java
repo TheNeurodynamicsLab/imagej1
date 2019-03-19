@@ -97,6 +97,8 @@ public class Image_to_XYI extends javax.swing.JFrame implements PlugIn{
           /* if(imp == null) 
                return;*/
            ij.process.FloatProcessor ip;
+           //imp.show();
+           
            int imageType = imp.getBitDepth();
            
            if(imageType != ImagePlus.GRAY32)
@@ -119,7 +121,7 @@ public class Image_to_XYI extends javax.swing.JFrame implements PlugIn{
                for(int cCol = 0 ; cCol < nCols ; cCol++){
                    
                    stringToWrite = "\t" + cCol + "\t" + cRow + "\t" + ip.getPixelValue(cCol, cRow) + "\n";
-                   System.out.print(stringToWrite);
+                   //System.out.print(stringToWrite);
                    try{
                        stringWriter.append(stringToWrite);
                    }catch(IOException e){
