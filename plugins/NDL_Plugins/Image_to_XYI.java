@@ -127,7 +127,7 @@ public class Image_to_XYI extends javax.swing.JFrame implements PlugIn{
                    
                }
            try {
-               stringWriter.flush();
+               stringWriter.close();
            } catch (IOException ex) {
                Logger.getLogger(Image_to_XYI.class.getName()).log(Level.SEVERE, null, ex);
            }
