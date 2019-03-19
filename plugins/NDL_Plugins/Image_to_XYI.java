@@ -40,7 +40,7 @@ public class Image_to_XYI extends javax.swing.JFrame implements PlugIn{
 
         jButton1 = new javax.swing.JButton();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
         jButton1.setText("Start Convert");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
@@ -118,11 +118,13 @@ public class Image_to_XYI extends javax.swing.JFrame implements PlugIn{
            for(int cRow = 0 ; cRow < nRows ; cRow++)
                for(int cCol = 0 ; cCol < nCols ; cCol++){
                    
-                   stringToWrite = "\t" + cRow + "\t" + cCol + "\t" + ip.getPixelValue(cRow, cCol) + "\n";
+                   stringToWrite = "\t" + cCol + "\t" + cRow + "\t" + ip.getPixelValue(cCol, cRow) + "\n";
+                   System.out.print(stringToWrite);
                    try{
                        stringWriter.append(stringToWrite);
                    }catch(IOException e){
                        Logger.getLogger(Image_to_XYI.class.getName()).log(Level.SEVERE, null, e);
+                       System.out.print("Error writing the file" + cRow+"\t"+cCol);
                    }
                    
                }
